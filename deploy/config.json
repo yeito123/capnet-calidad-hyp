@@ -1,0 +1,12 @@
+{
+  "backend_path": "D:/capnet/capnet_calidad_hyp/backend",
+  "frontend_path": "D:/capnet/capnet_calidad_hyp/frontend/calidad-hyp",
+  "iis_target": "C:/inetpub/wwwroot/calidad-hyp",
+  "nssm_path": "C:/nssm/nssm.exe",
+  "service_name": "CalidadHYPAPI",
+  "backend_port": 8000,
+  "frontend_port": 3000,
+  "site_name": "CalidadHYP",
+  "app_pool_name": "CalidadHYPPool"
+}
+
