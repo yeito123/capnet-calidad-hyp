@@ -3,9 +3,10 @@
 const nextConfig = {
   reactCompiler: true,
 
-  basePath: "/calidad-hyp",
-  assetPrefix: "/calidad-hyp",
+  basePath: "",
+  assetPrefix: "",
   trailingSlash: true,
+  output: "export",
 };
 
 export default nextConfig;
