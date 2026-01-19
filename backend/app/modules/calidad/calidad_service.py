@@ -25,7 +25,7 @@ class CalidadService:
     def get_vehiculos_en_fase_calidad(self) -> List[CalidadModel]:
         query = """
         SELECT *
-        FROM TYT_LV_TBL_CONTROL_CITAS
+        FROM v_validad_hyp
         WHERE idTecnicoAsi = ?
         """
         try:
@@ -41,7 +41,7 @@ class CalidadService:
     def get_vehiculo_por_id(self, id_hd: int) -> List[CalidadModel]:
         query = """
         SELECT *
-        FROM TYT_LV_TBL_CONTROL_CITAS
+        FROM v_validad_hyp
         WHERE id_hd = ? AND idTecnicoAsi = ?
         """
         try:
@@ -60,7 +60,7 @@ class CalidadService:
     def get_calidad_por_id(self, id: int) -> CalidadModel:
         query = """
         SELECT *
-        FROM TYT_LV_TBL_CONTROL_CITAS
+        FROM v_validad_hyp
         WHERE id = ?
         """
         try:
@@ -79,7 +79,7 @@ class CalidadService:
     def get_vehiculo_info(self, id_hd: int) -> CalidadModel:
         query = """
         SELECT *
-        FROM TYT_LV_TBL_CONTROL_CITAS
+        FROM v_validad_hyp
         WHERE id_hd = ? AND (idTecnicoAsi = ? OR idTecnicoAsi = ?)
         """
         try:

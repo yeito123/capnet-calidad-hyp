@@ -9,6 +9,7 @@ class CalidadModel(BaseModel):
     id_hd: Optional[int]
     fecha: Optional[datetime]
     status: Optional[str]
+    color: Optional[str]
     vehiculo: Optional[str]
     no_orden: Optional[str]
     no_placas: Optional[str]
@@ -26,6 +27,8 @@ class CalidadModel(BaseModel):
     servicio: Optional[str]
     servicio_capturado: Optional[str]
     id_fase: Optional[int]
+    tecnico: Optional[str]
+    asesor: Optional[str]
 
 
 class CalidadComentarioModel(BaseModel):

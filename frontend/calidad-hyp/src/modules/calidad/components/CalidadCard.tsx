@@ -1,5 +1,6 @@
 "use client";
 
+import dayjs from "dayjs";
 import {
   PlayIcon,
   CheckIcon,
@@ -21,18 +22,38 @@ export function CalidadCard({
   onFinalizar,
   onComentarios,
 }: CalidadCardProps) {
+  const formatTime = (date: string | null | undefined) => {
+    if (!date) return "N/A";
+    return dayjs(date).format("HH:mm A");
+  };
+
   return (
     <li className="rounded-lg p-4 border border-zinc-200 bg-white dark:bg-zinc-900 dark:border-zinc-700 shadow-sm">
       <div className="font-semibold text-lg">
-        {item.vehiculo ?? "Vehículo sin nombre"}
+        {item.color ?? "Sin color"} {item.vehiculo ?? "Vehículo sin nombre"}
       </div>
 
       <div className="text-sm text-zinc-600 dark:text-zinc-400">
         <span className="font-semibold">Orden:</span> {item.no_orden ?? "N/A"} —{" "}
         <span className="font-semibold">Placas:</span> {item.no_placas ?? "N/A"}
       </div>
-
-      <div className="text-sm mt-1 mb-3">
+      <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+        <span className="font-semibold">Asesor:</span> {item.asesor ?? "N/A"}
+      </div>
+      <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+        <span className="font-semibold">Técnico:</span> {item.tecnico ?? "N/A"}
+      </div>
+      <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+        <span className="font-semibold">Hora Inicio:</span>{" "}
+        {formatTime(item.fecha_hora_ini_oper)}
+      </div>
+      {item.fecha_hora_fin_oper && (
+        <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+          <span className="font-semibold">Hora Fin:</span>{" "}
+          {formatTime(item.fecha_hora_fin_oper)}
+        </div>
+      )}
+      <div className="text-sm mt-2 mb-3">
         <span className="font-semibold">Estado:</span>{" "}
         <span className="font-medium text-blue-600 dark:text-blue-400">
           {item.status ?? "Sin estado"}

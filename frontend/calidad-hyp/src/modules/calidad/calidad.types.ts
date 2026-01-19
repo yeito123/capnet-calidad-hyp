@@ -3,6 +3,7 @@ export interface CalidadResponse {
   id_chip?: number | null;
   id_hd?: number | null;
   fecha?: string | null; // datetime → string ISO
+  color: string | null;
   status?: string | null;
   vehiculo?: string | null;
   no_orden?: string | null;
@@ -20,6 +21,8 @@ export interface CalidadResponse {
   servicio?: string | null;
   servicio_capturado?: string | null;
   id_fase?: number | null;
+  tecnico: string | null;
+  asesor: string | null;
 }
 
 export interface ComentarioResponse {
