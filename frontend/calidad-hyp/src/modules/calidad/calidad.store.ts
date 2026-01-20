@@ -40,7 +40,11 @@ interface CalidadState {
   crearComentario: (payload: CrearComentarioRequest) => Promise<void>;
 
   iniciar: (id: number, usuario: string) => Promise<boolean>;
-  finalizar: (id: number, usuario: string) => Promise<boolean>;
+  finalizar: (
+    id: number,
+    usuario: string,
+    status_os: string,
+  ) => Promise<boolean>;
 }
 
 export const useCalidadStore = create<CalidadState>((set, get) => ({
@@ -145,7 +149,7 @@ export const useCalidadStore = create<CalidadState>((set, get) => ({
   iniciar: async (id, usuario): Promise<boolean> => {
     set({ loading: true });
     try {
-      const body: UsuarioRequest = { usuario };
+      const body: UsuarioRequest = { usuario, status_os: null };
       const data = await iniciarCalidad(id, body);
       set({ loading: false });
       return data;
@@ -158,10 +162,10 @@ export const useCalidadStore = create<CalidadState>((set, get) => ({
   // ============================================================
   // 8. Finalizar calidad
   // ============================================================
-  finalizar: async (id, usuario): Promise<boolean> => {
+  finalizar: async (id, usuario, status_os): Promise<boolean> => {
     set({ loading: true });
     try {
-      const body: UsuarioRequest = { usuario };
+      const body: UsuarioRequest = { usuario, status_os };
       const data = await finalizarCalidad(id, body);
       set({ loading: false });
       return data;

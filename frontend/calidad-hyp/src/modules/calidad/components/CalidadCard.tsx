@@ -12,14 +12,16 @@ import { CalidadResponse } from "@/modules/calidad/calidad.types";
 interface CalidadCardProps {
   item: CalidadResponse;
   onIniciar: (id: number) => void;
-  onFinalizar: (id: number) => void;
+  onAprobar: (id: number) => void;
+  onRechazar: (id: number) => void;
   onComentarios: (chipId: number | null | undefined) => void;
 }
 
 export function CalidadCard({
   item,
   onIniciar,
-  onFinalizar,
+  onAprobar,
+  onRechazar,
   onComentarios,
 }: CalidadCardProps) {
   const formatTime = (date: string | null | undefined) => {
@@ -60,6 +62,22 @@ export function CalidadCard({
         </span>
       </div>
 
+      {/* MOSTRAR STATUS_OS SI YA FINALIZÓ */}
+      {item.fecha_hora_fin_oper && item.status_os && (
+        <div className="text-sm mt-2 mb-3">
+          <span className="font-semibold">Resultado:</span>{" "}
+          <span
+            className={`font-bold ${
+              item.status_os === "Aprobado"
+                ? "text-green-600 dark:text-green-400"
+                : "text-red-600 dark:text-red-400"
+            }`}
+          >
+            {item.status_os}
+          </span>
+        </div>
+      )}
+
       {/* ================== ACCIONES ================== */}
       <div className="flex gap-3">
         {/* INICIAR */}
@@ -73,15 +91,24 @@ export function CalidadCard({
           </button>
         )}
 
-        {/* FINALIZAR */}
+        {/* APROBAR Y RECHAZAR */}
         {item.fecha_hora_ini_oper && !item.fecha_hora_fin_oper && (
-          <button
-            onClick={() => onFinalizar(item.id)}
-            className="px-3 py-2 bg-green-600 text-white rounded-md flex items-center gap-2 hover:bg-green-700 transition"
-          >
-            <CheckIcon className="w-5 h-5" />
-            <span>Finalizar</span>
-          </button>
+          <>
+            <button
+              onClick={() => onAprobar(item.id)}
+              className="px-3 py-2 bg-green-600 text-white rounded-md flex items-center gap-2 hover:bg-green-700 transition"
+            >
+              <CheckIcon className="w-5 h-5" />
+              <span>Aprobar</span>
+            </button>
+            <button
+              onClick={() => onRechazar(item.id)}
+              className="px-3 py-2 bg-red-600 text-white rounded-md flex items-center gap-2 hover:bg-red-700 transition"
+            >
+              <CheckIcon className="w-5 h-5" />
+              <span>Rechazar</span>
+            </button>
+          </>
         )}
 
         {/* COMENTARIOS */}

@@ -6,14 +6,16 @@ import { CalidadCard } from "./CalidadCard";
 interface CalidadListProps {
   items: CalidadResponse[];
   onIniciar: (id: number) => void;
-  onFinalizar: (id: number) => void;
+  onAprobar: (id: number) => void;
+  onRechazar: (id: number) => void;
   onComentarios: (chipId: number | null | undefined) => void;
 }
 
 export function CalidadList({
   items,
   onIniciar,
-  onFinalizar,
+  onAprobar,
+  onRechazar,
   onComentarios,
 }: CalidadListProps) {
   if (!items.length) {
@@ -31,7 +33,8 @@ export function CalidadList({
           key={v.id}
           item={v}
           onIniciar={onIniciar}
-          onFinalizar={onFinalizar}
+          onAprobar={onAprobar}
+          onRechazar={onRechazar}
           onComentarios={onComentarios}
         />
       ))}

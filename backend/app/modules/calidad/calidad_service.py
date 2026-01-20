@@ -214,10 +214,12 @@ class CalidadService:
 
     # ============================================================
     # 8. FINALIZAR CALIDAD
+    # Recibe 'Aprobado' o 'Rechazado' en status_os
     # ============================================================
-    def finalizar_calidad(self, id: int, usuario: str) -> CalidadModel:
+    def finalizar_calidad(self, id: int, usuario: str, status_os: str) -> CalidadModel:
         # 1. Obtener el registro
         calidad = self.get_calidad_por_id(id)
+        calidad.status_os = status_os
 
         if calidad.fecha_hora_ini_oper is None:
             raise ValidationError(
@@ -232,12 +234,13 @@ class CalidadService:
         UPDATE TYT_LV_TBL_CONTROL_CITAS
         SET 
             Fecha_Hora_Fin_Oper = GETDATE(),
-            Status = 'TERMINADO'
+            Status = 'TERMINADO',
+            Status_OS = ?
         WHERE id = ?
         """
 
         try:
-            self.db.update(update_query, (id,))
+            self.db.update(update_query, (status_os, id))
         except Exception as e:
             raise DatabaseError(detail=f"No se pudo finalizar la calidad: {str(e)}")
 
@@ -246,7 +249,7 @@ class CalidadService:
             id_chip=calidad.id_chip,
             status="TERMINADO",
             cve_usuario=usuario,
-            comentario="Calidad finalizada.",
+            comentario=f"Calidad finalizada con estado: {status_os}.",
         )
         self.agregar_comentario(auto_comment)
 

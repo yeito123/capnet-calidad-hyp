@@ -43,6 +43,7 @@ export interface CrearComentarioRequest {
 
 export interface UsuarioRequest {
   usuario: string;
+  status_os: string | null;
 }
 
 export interface CalidadListResponse {

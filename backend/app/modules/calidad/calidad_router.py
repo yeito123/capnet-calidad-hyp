@@ -85,4 +85,4 @@ def iniciar_calidad(id: int, body: UsuarioRequest):
 # ============================================================
 @router.post("/{id}/finalizar/", response_model=CalidadResponse)
 def finalizar_calidad(id: int, body: UsuarioRequest):
-    return service.finalizar_calidad(id, body.usuario)
+    return service.finalizar_calidad(id, body.usuario, body.status_os)

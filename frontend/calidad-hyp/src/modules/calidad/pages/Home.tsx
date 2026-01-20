@@ -45,7 +45,7 @@ export default function Home() {
 
   const iniciarCalidad = async (id: number) => {
     const alertResult = await alert.confirm(
-      "¿Estás seguro de iniciar el proceso de calidad?"
+      "¿Estás seguro de iniciar el proceso de calidad?",
     );
     if (!alertResult) return;
     let result = await iniciar(id, "admin");
@@ -57,16 +57,30 @@ export default function Home() {
     await cargar();
   };
 
-  const finalizarCalidad = async (id: number) => {
+  const aprobarCalidad = async (id: number) => {
     const alertResult = await alert.confirm(
-      "¿Estás seguro de finalizar el proceso de calidad?"
+      "¿Estás seguro de aprobar el proceso de calidad?",
     );
     if (!alertResult) return;
-    let result = await finalizar(id, "admin");
+    let result = await finalizar(id, "admin", "Aprobado");
     if (result) {
-      alert.info("El proceso de calidad ya ha sido finalizado.", "Información");
+      alert.info("El proceso de calidad ha sido aprobado.", "Información");
     } else {
-      alert.error("No se pudo finalizar el proceso de calidad.", "Error");
+      alert.error("No se pudo aprobar el proceso de calidad.", "Error");
+    }
+    await cargar();
+  };
+
+  const rechazarCalidad = async (id: number) => {
+    const alertResult = await alert.confirm(
+      "¿Estás seguro de rechazar el proceso de calidad?",
+    );
+    if (!alertResult) return;
+    let result = await finalizar(id, "admin", "Rechazado");
+    if (result) {
+      alert.info("El proceso de calidad ha sido rechazado.", "Información");
+    } else {
+      alert.error("No se pudo rechazar el proceso de calidad.", "Error");
     }
     await cargar();
   };
@@ -154,7 +168,8 @@ export default function Home() {
           <CalidadList
             items={filtrados}
             onIniciar={(id) => iniciarCalidad(id)}
-            onFinalizar={(id) => finalizarCalidad(id)}
+            onAprobar={(id) => aprobarCalidad(id)}
+            onRechazar={(id) => rechazarCalidad(id)}
             onComentarios={abrirComentarios}
           />
         )}

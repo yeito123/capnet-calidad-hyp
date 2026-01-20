@@ -48,3 +48,4 @@ class CrearComentarioRequest(BaseModel):
 
 class UsuarioRequest(BaseModel):
     usuario: str
+    status_os: Optional[str]
