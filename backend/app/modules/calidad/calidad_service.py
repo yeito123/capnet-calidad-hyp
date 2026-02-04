@@ -186,6 +186,10 @@ class CalidadService:
         if calidad.fecha_hora_ini_oper is not None:
             raise ValidationError(detail="La calidad ya fue iniciada.")
 
+        # Validación: id_chip requerido para comentarios
+        if calidad.id_chip is None:
+            raise ValidationError(detail="El registro no tiene id_chip válido.")
+
         # 2. Actualizar DB
         update_query = """
         UPDATE TYT_LV_TBL_CONTROL_CITAS
@@ -228,6 +232,10 @@ class CalidadService:
 
         if calidad.fecha_hora_fin_oper is not None:
             raise ValidationError(detail="La calidad ya está finalizada.")
+
+        # Validación: id_chip requerido para comentarios
+        if calidad.id_chip is None:
+            raise ValidationError(detail="El registro no tiene id_chip válido.")
 
         # 2. Actualizar DB
         update_query = """
