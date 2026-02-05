@@ -23,6 +23,7 @@ export default function Home() {
   } = useCalidad();
 
   const [filtroStatus, setFiltroStatus] = useState("Pendiente");
+  const [filtroStatusOs, setFiltroStatusOs] = useState("");
   const [filtroPlacas, setFiltroPlacas] = useState("");
   const [filtroOrden, setFiltroOrden] = useState("");
 
@@ -103,16 +104,18 @@ export default function Home() {
 
     return items.filter((v) => {
       const st = normal(v.status);
+      const stOs = normal(v.status_os);
       const pl = normal(v.no_placas);
       const or = normal(v.no_orden);
 
       return (
         (!filtroStatus || st.includes(filtroStatus.toLowerCase())) &&
+        (!filtroStatusOs || stOs.includes(filtroStatusOs.toLowerCase())) &&
         (!filtroPlacas || pl.includes(filtroPlacas.toLowerCase())) &&
         (!filtroOrden || or.includes(filtroOrden.toLowerCase()))
       );
     });
-  }, [items, filtroStatus, filtroPlacas, filtroOrden]);
+  }, [items, filtroStatus, filtroStatusOs, filtroPlacas, filtroOrden]);
 
   return (
     <>
@@ -123,19 +126,34 @@ export default function Home() {
 
         {/* ================= FILTROS ================= */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          {/* filtro status */}
           <select
             className="border rounded-md px-3 py-2 w-full"
             value={filtroStatus}
-            onChange={(e) => setFiltroStatus(e.target.value)}
+            onChange={(e) => {
+              setFiltroStatus(e.target.value);
+              if (e.target.value !== "Terminado") {
+                setFiltroStatusOs("");
+              }
+            }}
           >
             <option value="">Todos</option>
             <option value="Pendiente">Pendiente</option>
-            <option value="Terminado">Terminado</option>
             <option value="Iniciada">Proceso</option>
+            <option value="Terminado">Terminado</option>
           </select>
 
-          {/* filtro placas */}
+          {filtroStatus === "Terminado" && (
+            <select
+              className="border rounded-md px-3 py-2 w-full"
+              value={filtroStatusOs}
+              onChange={(e) => setFiltroStatusOs(e.target.value)}
+            >
+              <option value="">Todos</option>
+              <option value="Aprobado">Aprobado</option>
+              <option value="Rechazado">Rechazado</option>
+            </select>
+          )}
+
           <input
             type="text"
             placeholder="Filtrar por placas..."
@@ -144,7 +162,6 @@ export default function Home() {
             className="border rounded-md px-3 py-2 w-full"
           />
 
-          {/* filtro orden */}
           <input
             type="text"
             placeholder="Filtrar por orden..."

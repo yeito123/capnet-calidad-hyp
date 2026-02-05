@@ -12,6 +12,12 @@ class CalidadSchema:
         Convierte una fila de SQL (dict) al modelo CalidadModel.
         """
 
+        def calculate_tracker_url(no_orden: str) -> str:
+            # Aquí podrías usar settings.TRACKER_URL y formatearlo con no_orden
+            from app.core.config import settings
+
+            return settings.TRACKER_URL.format(no_order=no_orden)
+
         return CalidadModel(
             id=row.get("id"),
             id_chip=row.get("idChip"),
@@ -37,6 +43,11 @@ class CalidadSchema:
             id_fase=row.get("idTecnicoAsi"),
             tecnico=row.get("tecnico"),
             asesor=row.get("asesor"),
+            tracker_url=(
+                calculate_tracker_url(row.get("noOrden"))
+                if row.get("noOrden")
+                else None
+            ),
         )
 
     @staticmethod

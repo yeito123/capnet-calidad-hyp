@@ -29,6 +29,7 @@ class CalidadModel(BaseModel):
     id_fase: Optional[int]
     tecnico: Optional[str]
     asesor: Optional[str]
+    tracker_url: Optional[str]
 
 
 class CalidadComentarioModel(BaseModel):

@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from pydantic import Field
 
+
 class Settings(BaseSettings):
     DB_SERVER: str
     DB_USER: str
@@ -10,6 +11,8 @@ class Settings(BaseSettings):
     CALIDAD_FASE_ID: int
     PREVIUS_FASE_ID: int
 
+    TRACKER_URL: str = Field(validation_alias="tracker_url")
+
     # Lee CSV desde .env: "http://a,http://b"
     CORS_ORIGINS: list[str] = Field(default_factory=list)
 
@@ -18,5 +21,6 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
 
 settings = Settings()

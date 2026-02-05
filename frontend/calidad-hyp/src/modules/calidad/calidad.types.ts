@@ -23,6 +23,7 @@ export interface CalidadResponse {
   id_fase?: number | null;
   tecnico: string | null;
   asesor: string | null;
+  tracker_url?: string | null;
 }
 
 export interface ComentarioResponse {

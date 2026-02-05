@@ -5,6 +5,7 @@ import {
   PlayIcon,
   CheckIcon,
   ChatBubbleLeftRightIcon,
+  TruckIcon,
 } from "@heroicons/react/24/solid";
 
 import { CalidadResponse } from "@/modules/calidad/calidad.types";
@@ -32,15 +33,25 @@ export function CalidadCard({
   return (
     <li className="rounded-lg p-4 border border-zinc-200 bg-white dark:bg-zinc-900 dark:border-zinc-700 shadow-sm">
       <div className="font-semibold text-lg">
-        {item.color ?? "Sin color"} {item.vehiculo ?? "Vehículo sin nombre"}
+        {item.vehiculo ?? "Vehículo sin nombre"}
+      </div>
+
+      <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+        <span className="font-semibold">Color:</span> {item.color ?? "N/A"}
       </div>
 
       <div className="text-sm text-zinc-600 dark:text-zinc-400">
-        <span className="font-semibold">Orden:</span> {item.no_orden ?? "N/A"} —{" "}
+        <span className="font-semibold">Orden:</span> {item.no_orden ?? "N/A"}
+      </div>
+      <div className="text-sm text-zinc-600 dark:text-zinc-400">
         <span className="font-semibold">Placas:</span> {item.no_placas ?? "N/A"}
       </div>
       <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
         <span className="font-semibold">Asesor:</span> {item.asesor ?? "N/A"}
+      </div>
+      <div className="text-sm text-zinc-600 dark:text-zinc-400">
+        <span className="font-semibold">Operación:</span>{" "}
+        {item.servicio_capturado ?? "N/A"}
       </div>
       <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
         <span className="font-semibold">Técnico:</span> {item.tecnico ?? "N/A"}
@@ -119,6 +130,19 @@ export function CalidadCard({
           <ChatBubbleLeftRightIcon className="w-5 h-5" />
           <span>Comentarios</span>
         </button>
+
+        {/* ORDEN TRACKING */}
+        {item.tracker_url && (
+          <a
+            href={item.tracker_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-2 bg-orange-600 text-white rounded-md flex items-center gap-2 hover:bg-orange-700 transition"
+          >
+            <TruckIcon className="w-5 h-5" />
+            <span>Orden Tracking</span>
+          </a>
+        )}
       </div>
     </li>
   );
